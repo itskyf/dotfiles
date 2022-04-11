@@ -1,0 +1,9 @@
+(defwidget time []
+  (box :orientation "v" 
+    hour min sec))
+
+(defwindow bar_1
+  :monitor 0
+  :geometry (geometry :x 0 :y 0 :width "32px" :height "100%" :anchor "top right")
+  :reserve (struts :distance "32px" :side "right")
+  "s")

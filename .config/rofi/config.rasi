@@ -1,0 +1,5 @@
+configuration {
+	modi: [filebrowser,window,drun,combi];
+	combi-modi: [drun,window];
+}
+@theme "/usr/share/rofi/themes/purple.rasi"
