@@ -2,11 +2,13 @@
 # wm independent hotkeys
 #
 # fn keys
-XF86Audio{Raise,Lower}Volume
-	amixer set Master 5%{+,-}
-
-XF86AudioMute
-	amixer set Master toggle
+#XF86Audio{Raise,Lower}Volume
+#	amixer set Master 5%{+,-}
+#
+#XF86AudioMute
+#	amixer set Master toggle
+XF86MonBrightness{Up,Down}
+	brightnessctl set 5%{+,-}
 
 # terminal emulator
 super + Return
