@@ -8,11 +8,11 @@
 #XF86AudioMute
 #	amixer set Master toggle
 XF86MonBrightness{Up,Down}
-	brightnessctl set 5%{+,-}
+	brightnessctl set 10%{+,-}
 
 # terminal emulator
 super + Return
-	kitty
+	prime-run kitty
 
 # program launcher
 super + @space
