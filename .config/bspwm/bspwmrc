@@ -2,10 +2,10 @@
 
 xset s 300 5
 xss-lock -l -- xsecurelock &
-ibus-daemon --replace --daemonize --restart --xim
-xwallpaper --stretch ~/Pictures/Lavender.jpg
+xwallpaper --stretch
 eww daemon --restart
 eww open bar_1
+ibus-daemon --replace --daemonize --restart --xim
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
