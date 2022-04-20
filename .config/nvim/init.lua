@@ -1,2 +1,5 @@
-require('options')
-require('plugins')
+require 'settings'
+
+require 'plugins'
+require 'lsp'
+require 'treesitter'
