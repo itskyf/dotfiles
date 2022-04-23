@@ -1,31 +1,19 @@
+-- UI --
+vim.cmd[[colorscheme catppuccin]]
+
+vim.opt.laststatus = 3
+vim.opt.number = true
+vim.opt.showtabline = 2
+vim.opt.termguicolors = true
+
 -- Indent
 vim.opt.tabstop = 3
 vim.opt.shiftwidth = 3
+vim.opt.wrap = false
 
--- UI
-vim.opt.number = true
+-- UX --
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
--- Disable builtins plugins
-local disabled_built_ins = {
-	'netrw',
-	'netrwPlugin',
-	'netrwSettings',
-	'netrwFileHandlers',
-	'gzip',
-	'zip',
-	'zipPlugin',
-	'tar',
-	'tarPlugin',
-	'getscript',
-	'getscriptPlugin',
-	'vimball',
-	'vimballPlugin',
-	'2html_plugin',
-	'logipat',
-	'rrhelper',
-	'spellfile_plugin',
-	'matchit'
-}
-for _, plugin in pairs(disabled_built_ins) do
-	vim.g['loaded_' .. plugin] = 1
-end
+vim.opt.scrolloff = 4
+vim.opt.sidescrolloff = 6
