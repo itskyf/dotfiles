@@ -1,5 +1,6 @@
-require 'settings'
-
+require 'language_server'
+require 'null_ls'
 require 'plugins'
+require 'settings'
+require 'telescope_nvim'
 require 'treesitter'
-require 'lsp'
