@@ -1,0 +1,1 @@
+mole completion fish | source

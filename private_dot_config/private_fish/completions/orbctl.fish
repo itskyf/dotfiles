@@ -1,0 +1,1 @@
+orbctl completion fish | source
