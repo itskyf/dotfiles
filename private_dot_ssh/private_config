@@ -1,0 +1,8 @@
+Host *
+    ServerAliveInterval 60
+
+Host viact-personal-nx
+    HostName 192.168.81.233
+    User nx-int
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/viact.pub

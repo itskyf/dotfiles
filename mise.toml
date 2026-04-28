@@ -1,0 +1,8 @@
+[env]
+HK_MISE = 1
+HK_PKL_BACKEND = "pklr"
+
+[tools]
+hk = "latest"
+prek = "latest"
+tombi = "latest"
