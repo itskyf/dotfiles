@@ -17,6 +17,7 @@
 			}
 		]
 	},
+	"enabledPlugins": {},
 	"skipDangerousModePermissionPrompt": true,
 	"theme": "auto"
 }

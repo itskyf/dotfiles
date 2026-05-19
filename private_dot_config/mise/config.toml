@@ -33,3 +33,7 @@ yt-dlp = { version = "latest", rename_exe = "yt-dlp" }
 eza = "latest"
 bottom = "latest"
 git-lfs = "latest"
+"conda:bubblewrap" = "latest"
+"conda:rsync" = "latest"
+hk = "latest"
+deno = "latest"

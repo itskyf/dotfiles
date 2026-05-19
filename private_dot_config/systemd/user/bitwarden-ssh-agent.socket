@@ -1,0 +1,11 @@
+[Unit]
+Description=Bitwarden SSH agent socket for WSL
+
+[Socket]
+ListenStream=%t/bitwarden-ssh-agent.sock
+SocketMode=0600
+Accept=yes
+RemoveOnStop=yes
+
+[Install]
+WantedBy=sockets.target
