@@ -25,7 +25,6 @@ neovim = "latest"
 "conda:ffmpeg" = "latest"
 yt-dlp = { version = "latest", rename_exe = "yt-dlp" }
 "conda:gnupg" = "latest"
-"npm:@google/gemini-cli" = "latest"
 "npm:@openai/codex" = "latest"
 "conda:socat" = "latest"
 "conda:openssh" = "latest"

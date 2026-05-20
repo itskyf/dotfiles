@@ -8,3 +8,4 @@ if status is-interactive
         set --global --export SSH_AUTH_SOCK (path normalize "$XDG_RUNTIME_DIR/bitwarden-ssh-agent.sock")
     end
 end
+
