@@ -36,3 +36,8 @@ git-lfs = "latest"
 "conda:rsync" = "latest"
 hk = "latest"
 deno = "latest"
+tmux = "latest"
+
+[settings]
+[settings.npm]
+package_manager = "aube"
