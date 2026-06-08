@@ -1,11 +1,10 @@
 if status is-interactive
     set fish_greeting ""
 
-    fish_config theme choose catppuccin-mocha
+    fish_config theme choose --color-theme=dark catppuccin-mocha
 
     fnox activate fish | source
     starship init fish | source
-    zoxide init fish | source
 
     if not set --query SSH_AUTH_SOCK
         and set --query WSL_DISTRO_NAME

@@ -1,5 +1,5 @@
 [Unit]
-Description=Bitwarden SSH agent socket for WSL
+Description=Bitwarden SSH agent socket
 
 [Socket]
 ListenStream=%t/bitwarden-ssh-agent.sock

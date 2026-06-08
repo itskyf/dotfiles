@@ -2,16 +2,14 @@ amends "package://github.com/jdx/hk/releases/download/v1.45.0/hk@1.45.0#/Config.
 import "package://github.com/jdx/hk/releases/download/v1.45.0/hk@1.45.0#/Builtins.pkl"
 
 local linters = new Mapping<String, Step> {
-    // Add linters here. Examples:
     ["biome"] = Builtins.biome
     ["tombi"] = Builtins.tombi
     ["tombi_format"] = Builtins.tombi_format
 
-    // Or define custom steps:
-    // ["custom"] {
-    //     glob = "**/*.py"
-    //     check = "mypy {{ files }}"
-    // }
+    ["fish_format"] {
+        glob = "**/*.fish"
+        fix = "fish_indent --write {{ files }}"
+    }
 }
 
 hooks {

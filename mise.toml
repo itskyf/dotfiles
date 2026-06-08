@@ -4,5 +4,4 @@ HK_PKL_BACKEND = "pklr"
 
 [tools]
 hk = "latest"
-prek = "latest"
 tombi = "latest"

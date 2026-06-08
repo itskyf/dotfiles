@@ -1,0 +1,11 @@
+[tools]
+chezmoi = "latest"
+"conda:git" = "latest"
+"conda:openssh" = "latest"
+fd = "latest"
+fnox = "latest"
+hk = "latest"
+jaq = "latest"
+ripgrep = "latest"
+starship = "latest"
+usage = "latest"

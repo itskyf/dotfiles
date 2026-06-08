@@ -1,0 +1,11 @@
+[Unit]
+Description=Bitwarden SSH agent relay
+CollectMode=inactive-or-failed
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/mise --no-config --no-env --no-hooks --silent exec conda:socat -- socat STDIO 'EXEC:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command "& mise.exe --no-config --no-env --no-hooks --silent exec github\\:albertony/npiperelay -- npiperelay.exe --ei --s //./pipe/openssh-ssh-agent",nofork'
+StandardInput=socket
+StandardOutput=socket
+StandardError=journal
+TimeoutStopSec=5s
