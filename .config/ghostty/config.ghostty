@@ -1,0 +1,3 @@
+command = /home/linuxbrew/.linuxbrew/bin/fish
+maximize = true
+theme = Catppuccin Mocha

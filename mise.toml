@@ -1,0 +1,6 @@
+[tools]
+"aqua:Kampfkarren/selene" = "latest"
+biome = "latest"
+hk = { version = "latest", postinstall = { run = "hk install --mise", when = "always" } }
+stylua = "latest"
+tombi = "latest"

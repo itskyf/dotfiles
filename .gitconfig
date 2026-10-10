@@ -1,0 +1,17 @@
+[core]
+	editor = nvim
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
+[user]
+	email = 40734986+itskyf@users.noreply.github.com
+	name = Kỳ
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIjhfOBuo0a9bONBGLwD4wNI3DWRPkpP09+AO13sk7KF
+
+[credential "https://github.com"]
+	helper = 
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential

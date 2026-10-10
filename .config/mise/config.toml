@@ -1,0 +1,37 @@
+[bootstrap.packages]
+"brew:fd" = "latest"
+"brew:fish" = "latest"
+"brew:gh" = "latest"
+"brew:herdr" = "latest"
+"brew:ripgrep" = "latest"
+"brew:sk" = "latest"
+"brew:starship" = "latest"
+"brew:topgrade" = "latest"
+
+[bootstrap.repos]
+"~/Projects/HCMUS/krinode" = { url = "https://github.com/itskyf/krinode.git" }
+
+[dotfiles]
+"~/.config/fish/config.fish" = {}
+"~/.config/ghostty/config.ghostty" = {}
+"~/.config/mise/config.toml" = {}
+"~/.config/nvim" = {}
+"~/.config/starship.toml" = { source = "~/.dotfiles/.config/starship.toml.tera", mode = "template" }
+"~/.gitconfig" = {}
+"~/.var/app/io.mpv.Mpv/config/mpv/mpv.conf" = {}
+
+[settings]
+activate_shims = false
+not_found_system_fallback = false
+paranoid = true
+
+[settings.github]
+credential_command = "gh auth token"
+
+[settings.self_update]
+auto = true
+
+[tools]
+"aqua:neovim/neovim" = "0.12"
+"github:EmmyLuaLs/emmylua-analyzer-rust" = { version = "latest", matching_regex = "^emmylua_ls-" }
+tree-sitter = "latest"

@@ -1,0 +1,5 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+palette = "catppuccin_mocha"
+
+{{ exec(command="curl --fail --silent --show-error --location https://raw.githubusercontent.com/catppuccin/starship/main/themes/mocha.toml", cache_duration="30d") }}
