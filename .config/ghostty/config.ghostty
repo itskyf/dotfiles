@@ -1,3 +1,4 @@
 command = /home/linuxbrew/.linuxbrew/bin/fish
 maximize = true
-theme = Catppuccin Mocha
+theme = light:Catppuccin Latte,dark:Catppuccin Mocha
+notify-on-command-finish = unfocused

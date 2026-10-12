@@ -1,19 +1,34 @@
+vim.opt.autocomplete = true
+vim.opt.complete:prepend("o")
+vim.opt.completeopt:append("noselect")
+
+vim.opt.number = true
+vim.opt.relativenumber = true
+
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 0
 
-vim.opt.autocomplete = true
-vim.opt.complete:prepend("o")
-
 vim.pack.add({
 	{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
+	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/ibhagwan/fzf-lua",
-	"https://github.com/nvim-treesitter/nvim-treesitter",
 })
 
-vim.cmd.colorscheme("catppuccin")
+vim.cmd.colorscheme("catppuccin-nvim")
 
-require("fzf-lua").setup({ "skim" })
+local fzf = require("fzf-lua")
+fzf.setup({
+	[1] = "skim", -- fzf-lua profile
+	winopts = {
+		preview = {
+			default = "bat",
+		},
+	},
+})
+vim.keymap.set("n", "<C-p>", fzf.global, { desc = "Find files, buffers, and symbols" })
+vim.keymap.set("n", "<leader>sg", fzf.grep_cword, { desc = "Search word under cursor in project" })
+vim.keymap.set("x", "<leader>sg", fzf.grep_visual, { desc = "Search visual selection in project" })
 
 -- Keep parsers compatible when nvim-treesitter updates.
 vim.api.nvim_create_autocmd("PackChanged", {
@@ -68,4 +83,4 @@ vim.lsp.config("emmylua_ls", {
 	},
 })
 
-vim.lsp.enable({ "emmylua_ls", "ty", "ruff", "tombi" })
+vim.lsp.enable({ "bashls", "emmylua_ls", "fish_lsp", "ty", "ruff", "tombi" })

@@ -1,17 +1,25 @@
 [core]
 	editor = nvim
+	pager = delta
 [commit]
 	gpgsign = true
+[delta]
+	navigate = true
+	syntax-theme = Catppuccin Mocha
 [gpg]
 	format = ssh
+[interactive]
+	diffFilter = delta --color-only
+[merge]
+	conflictStyle = zdiff3
 [user]
 	email = 40734986+itskyf@users.noreply.github.com
 	name = Kỳ
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIjhfOBuo0a9bONBGLwD4wNI3DWRPkpP09+AO13sk7KF
 
 [credential "https://github.com"]
-	helper = 
+	helper =
 	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = 
+	helper =
 	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
