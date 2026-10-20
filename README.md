@@ -11,7 +11,8 @@ Review any existing `~/.config/mise` and conflicting dotfiles before adoption.
 mise bootstrap --adopt itskyf/dotfiles
 ```
 
-The Git checkout lives at `~/.config/mise`; dotfile sources live in `home/`.
+The checkout lives at `~/.config/mise`; deployable dotfile sources live in `home/`.
+mise commands work from any directory.
 
 ## Manage dotfiles
 
@@ -23,26 +24,29 @@ mise dot status
 mise dot apply
 ```
 
-To stop deploying a group-managed file, delete its source and prune its symlink:
+To stop deploying a group-managed file, remove its source and prune its symlink:
 
 ```sh
-git -C ~/.config/mise rm home/.config/example/config
+cd ~/.config/mise
+git rm home/.config/example/config
 mise dot apply --prune
 ```
 
 For a whole-directory link such as `~/.apm` or `~/.config/nvim`, run
 `mise dot unapply <directory>` **before** removing its group entry and source.
 
-Review and commit source changes:
+Review source changes before committing:
 
 ```sh
-git -C ~/.config/mise status --short
-git -C ~/.config/mise add -A
-git -C ~/.config/mise diff --cached
-git -C ~/.config/mise commit -m "Update dotfiles"
+cd ~/.config/mise
+git status --short
+git diff
+git add --all
+git diff --cached
+git commit --message "Update dotfiles"
 ```
 
-Update and prune obsolete group-managed links on other machines:
+Update the checkout and prune obsolete group-managed links on other machines:
 
 ```sh
 mise bootstrap --adopt itskyf/dotfiles --update --prune-dotfiles
@@ -50,13 +54,20 @@ mise bootstrap --adopt itskyf/dotfiles --update --prune-dotfiles
 
 ## Why this design?
 
-`--adopt` makes this Git repository the global mise configuration, available
-from any directory; `.mise/` isolates repository-only lint/format tools.
-A single `home` group deploys new files without individual TOML entries and
-remembers orphaned links for pruning. Git provides reviewable source history.
-
-The group has **no Git manifest**, keeping `mise dot add` usable. Use that command
-for source-controlled files, not `mise dot track` (mise's history-based tracking).
-Keep generated files out of group-walked source directories: `.gitignore` alone
-does not prevent mise from deploying them. APM and Neovim use whole-directory
-symlinks; `home/.apm/.gitignore` ignores APM's `apm_modules/` in Git.
+- **`--adopt` over `--from`:** Adopt makes this Git checkout mise's global
+  config, loaded from any directory. From runs a bootstrap project from a
+  separate checkout; it does not install that project's config globally.
+- **Source-controlled over history-based adoption / `mise dot track`:**
+  Regular Git commits and PRs are the source of truth, not mise's file history.
+  Use `mise dot add` to capture a new managed source.
+- **`home/` plus `.mise/`:** Dotfiles are isolated from repository tooling.
+  The project-only lint/format tools and lockfile stay in `.mise/`.
+- **One group over individual `[dotfiles]` entries:** New sources deploy
+  without per-file declarations, and `--prune` removes orphaned group links.
+- **`symlink-each` over linking all of `~`:** Real target directories can
+  coexist with unmanaged app files. APM and Neovim intentionally link entire
+  directories; Starship renders a template.
+- **No `manifest = "git"`:** Git-index manifests restrict deployment to
+  tracked files but prevent `mise dot add` from capturing into the group.
+  Keep generated files out of walked sources: `.gitignore` alone does not
+  stop deployment. `home/.apm/.gitignore` excludes `apm_modules/` from Git.
