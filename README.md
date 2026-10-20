@@ -14,4 +14,4 @@ mise bootstrap --adopt itskyf/dotfiles --update
 
 `~/.config/mise` must be absent, empty, or already this repository's checkout.
 Move an unrelated existing configuration aside before adoption.
-Only Git-tracked files are deployed from the `.config` and `.var` trees.
+Only Git-tracked `.config` files are deployed; mpv uses an explicit file mapping.

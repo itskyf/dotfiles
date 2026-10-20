@@ -18,11 +18,11 @@
 
 [dotfiles]
 "~/.apm" = ".apm"
-"~/.config" = { source = ".config", mode = "symlink-each", manifest = "git", exclude = ["/nvim", "/starship.toml.tera"] }
+"~/.config" = { source = ".config", mode = "symlink-each", manifest = "git", exclude = ["/mise", "/nvim", "/starship.toml.tera"] }
 "~/.config/nvim" = ".config/nvim"
 "~/.config/starship.toml" = { source = ".config/starship.toml.tera", mode = "template" }
 "~/.gitconfig" = ".gitconfig"
-"~/.var" = { source = ".var", mode = "symlink-each", manifest = "git" }
+"~/.var/app/io.mpv.Mpv/config/mpv/mpv.conf" = ".var/app/io.mpv.Mpv/config/mpv/mpv.conf"
 
 [settings]
 activate_shims = false
