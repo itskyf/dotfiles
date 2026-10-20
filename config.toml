@@ -23,6 +23,7 @@
 "~/.config/starship.toml" = { source = ".config/starship.toml.tera", mode = "template" }
 "~/.gitconfig" = ".gitconfig"
 "~/.var/app/io.mpv.Mpv/config/mpv/mpv.conf" = ".var/app/io.mpv.Mpv/config/mpv/mpv.conf"
+
 [settings]
 activate_shims = false
 not_found_system_fallback = false
