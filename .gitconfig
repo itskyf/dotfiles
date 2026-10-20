@@ -5,6 +5,7 @@
 	gpgsign = true
 [delta]
 	navigate = true
+	side-by-side = true
 	syntax-theme = Catppuccin Mocha
 [gpg]
 	format = ssh

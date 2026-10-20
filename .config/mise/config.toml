@@ -11,17 +11,20 @@
 "brew:starship" = "latest"
 "brew:topgrade" = "latest"
 "brew:zoxide" = "latest"
+"brew:gitnr" = "latest"
 
 [bootstrap.repos]
 "~/Projects/HCMUS/krinode" = { url = "https://github.com/itskyf/krinode.git" }
 
 [dotfiles]
+"~/.apm" = {}
 "~/.config/bat/config" = {}
 "~/.config/fish/config.fish" = {}
 "~/.config/ghostty/config.ghostty" = {}
 "~/.config/mise/config.toml" = {}
 "~/.config/nvim" = {}
 "~/.config/starship.toml" = { source = "~/.dotfiles/.config/starship.toml.tera", mode = "template" }
+"~/.config/topgrade.toml" = {}
 "~/.gitconfig" = {}
 "~/.var/app/io.mpv.Mpv/config/mpv/mpv.conf" = {}
 
@@ -39,8 +42,13 @@ auto = true
 
 [tools]
 "aqua:neovim/neovim" = "0.12"
+"github:docker/docker-language-server" = "latest"
 "github:EmmyLuaLs/emmylua-analyzer-rust" = { version = "latest", matching_regex = "^emmylua_ls-" }
 node = "latest"
 "npm:bash-language-server" = "latest"
 "npm:fish-lsp" = "latest"
+"npm:yaml-language-server" = "latest"
 tree-sitter = "latest"
+fnox = { version = "latest", workflow = "release.yml" }
+uv = "latest"
+apm = "latest"

@@ -1,0 +1,17 @@
+name: itskyf
+version: 1.0.0
+description: APM project for itskyf
+author: Kỳ
+targets:
+  - claude
+  - codex
+dependencies:
+  apm: []
+  mcp: []
+includes: auto
+scripts: {}
+devDependencies:
+  apm:
+    - DietrichGebert/ponytail#v5.3.2
+    - github/awesome-copilot/skills/conventional-branch#main
+    - github/awesome-copilot/skills/conventional-commit#main

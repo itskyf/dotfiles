@@ -83,4 +83,14 @@ vim.lsp.config("emmylua_ls", {
 	},
 })
 
-vim.lsp.enable({ "bashls", "emmylua_ls", "fish_lsp", "ty", "ruff", "tombi" })
+vim.lsp.enable({
+	"bashls",
+	"biome",
+	"docker_language_server",
+	"emmylua_ls",
+	"fish_lsp",
+	"ty",
+	"ruff",
+	"tombi",
+	"yamlls",
+})
