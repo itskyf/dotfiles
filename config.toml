@@ -16,15 +16,18 @@
 [bootstrap.repos]
 "~/Projects/HCMUS/krinode" = { url = "https://github.com/itskyf/krinode.git" }
 
-[dotfiles]
-"~/.apm" = ".apm"
-"~/.config" = { source = ".config", mode = "symlink-each", manifest = "git", exclude = ["/mise", "/nvim", "/starship.toml.tera"] }
-"~/.config/nvim" = ".config/nvim"
-"~/.config/starship.toml" = { source = ".config/starship.toml.tera", mode = "template" }
-"~/.gitconfig" = ".gitconfig"
-"~/.var/app/io.mpv.Mpv/config/mpv/mpv.conf" = ".var/app/io.mpv.Mpv/config/mpv/mpv.conf"
+[dotfile_groups.home]
+root = "."
+target = "~"
+mode = "symlink-each"
+
+[dotfile_groups.home.entries]
+"~/.apm" = { mode = "symlink" }
+"~/.config/nvim" = { mode = "symlink" }
+"~/.config/starship.toml" = { mode = "template" }
 
 [settings]
+dotfiles.root = "~/.config/mise/home"
 activate_shims = false
 not_found_system_fallback = false
 paranoid = true
