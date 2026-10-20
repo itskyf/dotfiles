@@ -1,17 +1,18 @@
 # Dotfiles
 
-Bootstrap from the repository:
+Install with mise's native global-config workflow:
 
 ```sh
-mise bootstrap --from https://github.com/itskyf/dotfiles.git
+mise bootstrap --adopt itskyf/dotfiles
 ```
 
 Update the checkout and reapply:
 
 ```sh
-mise bootstrap --from https://github.com/itskyf/dotfiles.git --update
+mise bootstrap --adopt itskyf/dotfiles --update
 ```
 
-Bootstrap copies `.config/mise/config.toml` to your global mise config, so
-`mise bootstrap packages upgrade` works from any directory. Authenticate
-Git before the first run if cloning private repositories.
+The checkout lives at `~/.config/mise`. Global mise commands work from any
+directory; repo-only dev tools and their lockfile live in `.mise/`.
+Move an unrelated existing `~/.config/mise` aside before adoption.
+Authenticate with GitHub first if cloning private repositories.

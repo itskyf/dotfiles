@@ -1,0 +1,6 @@
+[tools]
+"aqua:Kampfkarren/selene" = "latest"
+biome = "latest"
+hk = { version = "latest" }
+stylua = "latest"
+tombi = "latest"
