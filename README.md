@@ -1,17 +1,17 @@
 # Dotfiles
 
-Adopt as [mise's global configuration](https://mise.jdx.dev/bootstrap/from-repository.html):
+Bootstrap from the repository:
 
 ```sh
-mise bootstrap --adopt itskyf/dotfiles
+mise bootstrap --from https://github.com/itskyf/dotfiles.git
 ```
 
-Update:
+Update the checkout and reapply:
 
 ```sh
-mise bootstrap --adopt itskyf/dotfiles --update
+mise bootstrap --from https://github.com/itskyf/dotfiles.git --update
 ```
 
-`~/.config/mise` must be absent, empty, or already this repository's checkout.
-Move an unrelated existing configuration aside before adoption.
-Only Git-tracked `.config` files are deployed; mpv uses an explicit file mapping.
+Bootstrap copies `.config/mise/config.toml` to your global mise config, so
+`mise bootstrap packages upgrade` works from any directory. Authenticate
+Git before the first run if cloning private repositories.
