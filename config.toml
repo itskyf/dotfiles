@@ -1,4 +1,8 @@
 [bootstrap.packages]
+# Official Node.js 25+ Linux binaries require libatomic at runtime.
+# https://github.com/nodejs/node/blob/main/BUILDING.md#official-binary-platforms-and-toolchains
+"apt:libatomic1" = "latest"
+"dnf:libatomic" = "latest"
 "brew:bat" = "latest"
 "brew:chafa" = "latest"
 "brew:fd" = "latest"
@@ -17,7 +21,7 @@
 "~/Projects/HCMUS/krinode" = { url = "https://github.com/itskyf/krinode.git" }
 
 [dotfile_groups.home]
-root = "."
+root = "home"
 target = "~"
 mode = "symlink-each"
 
@@ -26,8 +30,11 @@ mode = "symlink-each"
 "~/.config/nvim" = { mode = "symlink" }
 "~/.config/starship.toml" = { mode = "template" }
 
+[env]
+_.path = ["{{ system_brew_prefix }}/bin"]
+
 [settings]
-dotfiles.root = "~/.config/mise/home"
+dotfiles.root = "~/.config/mise"
 activate_shims = false
 not_found_system_fallback = false
 paranoid = true
