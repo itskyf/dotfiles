@@ -4,15 +4,29 @@ Source-controlled workstation setup with [mise](https://mise.jdx.dev/).
 
 ## Initialize
 
-Install mise and Git, and authenticate with GitHub for private repositories.
-Review any existing `~/.config/mise` and conflicting dotfiles before adoption.
+Install mise, Git, and Homebrew; ensure `brew` is on `PATH`. Review any
+existing `~/.config/mise` and conflicting dotfiles first.
+
+The dotfiles repository is public. Adopt it and install packages (including
+`brew:gh`) and dotfiles before cloning private repositories:
 
 ```sh
-mise bootstrap --adopt itskyf/dotfiles
+mise bootstrap --adopt itskyf/dotfiles --only packages,dotfiles
+command -v gh
+gh auth login --hostname github.com --git-protocol https --web
+mise token github
+mise bootstrap
 ```
 
-The checkout lives at `~/.config/mise`; deployable dotfile sources live in `home/`.
-mise commands work from any directory.
+If `gh` is not on `PATH`, load Homebrew in your current shell first:
+`eval "$(brew shellenv bash)"` (Bash) or `brew shellenv fish | source` (Fish).
+There is no need for `mise exec gh` or exporting a token: mise's existing
+`[settings.github] credential_command` reads the token from `gh`'s credential
+store. Git credentials are already configured by the managed `~/.gitconfig`;
+do not run `gh auth setup-git` or let login overwrite that configuration.
+
+The checkout lives at `~/.config/mise`; deployable dotfile sources live in
+`home/`. Global mise commands work from any directory.
 
 ## Manage dotfiles
 
