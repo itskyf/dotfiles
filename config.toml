@@ -1,4 +1,8 @@
 [bootstrap.packages]
+# Official Node.js 25+ Linux binaries require libatomic at runtime.
+# https://github.com/nodejs/node/blob/main/BUILDING.md#official-binary-platforms-and-toolchains
+"apt:libatomic1" = "latest"
+"dnf:libatomic" = "latest"
 "brew:bat" = "latest"
 "brew:chafa" = "latest"
 "brew:fd" = "latest"
@@ -16,19 +20,21 @@
 [bootstrap.repos]
 "~/Projects/HCMUS/krinode" = { url = "https://github.com/itskyf/krinode.git" }
 
-[dotfiles]
-"~/.apm" = {}
-"~/.config/bat/config" = {}
-"~/.config/fish/config.fish" = {}
-"~/.config/ghostty/config.ghostty" = {}
-"~/.config/mise/config.toml" = {}
-"~/.config/nvim" = {}
-"~/.config/starship.toml" = { source = "~/.dotfiles/.config/starship.toml.tera", mode = "template" }
-"~/.config/topgrade.toml" = {}
-"~/.gitconfig" = {}
-"~/.var/app/io.mpv.Mpv/config/mpv/mpv.conf" = {}
+[dotfile_groups.home]
+root = "home"
+target = "~"
+mode = "symlink-each"
+
+[dotfile_groups.home.entries]
+"~/.apm" = { mode = "symlink" }
+"~/.config/nvim" = { mode = "symlink" }
+"~/.config/starship.toml" = { mode = "template" }
+
+[env]
+_.path = ["{{ system_brew_prefix }}/bin"]
 
 [settings]
+dotfiles.root = "~/.config/mise"
 activate_shims = false
 not_found_system_fallback = false
 paranoid = true
