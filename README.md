@@ -6,14 +6,15 @@ Source-controlled workstation setup with [mise](https://mise.jdx.dev/).
 
 Install mise and review any existing `~/.config/mise` and conflicting dotfiles before adopting.
 Mise can offer to install Git if missing; system packages such as `libatomic` may require elevated privileges.
-The dotfiles repository is public, but `krinode` is private, so install packages and dotfiles before authenticating and completing bootstrap:
+The dotfiles repository is public, but `krinode` is private, so install packages and dotfiles, authenticate without auto-installing other global tools, then complete bootstrap:
 
 ```shell
 mise bootstrap --adopt itskyf/dotfiles --only packages,dotfiles
-mise exec -- gh auth login --hostname github.com --git-protocol https --web
+MISE_EXEC_AUTO_INSTALL=false mise exec -- gh auth login --hostname github.com --git-protocol https --web
 mise bootstrap
 ```
 
+`MISE_EXEC_AUTO_INSTALL=false` applies only to the login command; the final `mise bootstrap` installs the remaining global tools and clones the private repository.
 Mise installs `brew:` packages without requiring Homebrew, and the global `[env]` adds their executable directory to mise-managed environments.
 The managed `~/.gitconfig` configures the GitHub credential helper, while `[settings.github]` reads `gh auth token`; no manual token export or `gh auth setup-git` is needed.
 The checkout lives at `~/.config/mise`, its dotfile sources live in `home/`, and global mise commands work from any directory.
