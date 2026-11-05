@@ -13,18 +13,20 @@ vim.pack.add({
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/ibhagwan/fzf-lua",
+	"https://github.com/nvim-mini/mini.icons"
 })
 
 vim.cmd.colorscheme("catppuccin-nvim")
 
+require("mini.icons").setup()
 local fzf = require("fzf-lua")
 fzf.setup({
 	[1] = "skim", -- fzf-lua profile
 	winopts = {
 		preview = {
-			default = "bat",
-		},
-	},
+			default = "bat"
+		}
+	}
 })
 vim.keymap.set("n", "<C-p>", fzf.global, { desc = "Find files, buffers, and symbols" })
 vim.keymap.set("n", "<leader>sg", fzf.grep_cword, { desc = "Search word under cursor in project" })
@@ -32,16 +34,16 @@ vim.keymap.set("x", "<leader>sg", fzf.grep_visual, { desc = "Search visual selec
 
 -- Keep parsers compatible when nvim-treesitter updates.
 vim.api.nvim_create_autocmd("PackChanged", {
-	callback = function(ev)
+	callback = function (ev)
 		if ev.data.spec.name == "nvim-treesitter" and ev.data.kind == "update" then
 			vim.cmd.TSUpdate()
 		end
-	end,
+	end
 })
 
 -- Install parsers automatically when opening new languages.
 vim.api.nvim_create_autocmd("FileType", {
-	callback = function(ev)
+	callback = function (ev)
 		local lang = vim.treesitter.language.get_lang(ev.match)
 		if not lang then
 			return
@@ -57,18 +59,13 @@ vim.api.nvim_create_autocmd("FileType", {
 			return
 		end
 
-		ts.install(lang):await(function(err, ok)
-			if
-				not err
-				and ok
-				and vim.api.nvim_buf_is_valid(ev.buf)
-				and vim.bo[ev.buf].filetype == ev.match
-				and vim.treesitter.language.add(lang)
-			then
+		ts.install(lang):await(function (err, ok)
+			if not err and ok and vim.api.nvim_buf_is_valid(ev.buf) and vim.bo[ev.buf].filetype == ev.match
+				and vim.treesitter.language.add(lang) then
 				vim.treesitter.start(ev.buf)
 			end
 		end)
-	end,
+	end
 })
 
 vim.lsp.config("emmylua_ls", {
@@ -77,20 +74,25 @@ vim.lsp.config("emmylua_ls", {
 			runtime = { version = "LuaJIT" },
 			diagnostics = { globals = { "vim" } },
 			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
-			},
-		},
-	},
+				library = vim.api.nvim_get_runtime_file("", true)
+			}
+		}
+	}
 })
 
+vim.lsp.config("mise", {
+	init_options = { formatting = false, hover = false, completion = false }
+})
 vim.lsp.enable({
 	"bashls",
 	"biome",
 	"docker_language_server",
 	"emmylua_ls",
 	"fish_lsp",
-	"ty",
+	"lemminx",
+	"mise",
 	"ruff",
 	"tombi",
-	"yamlls",
+	"ty",
+	"yamlls"
 })
