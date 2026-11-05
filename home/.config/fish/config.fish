@@ -20,18 +20,17 @@ if status is-interactive
 
     functions --erase _source_if_available
 
-    if set --query WSL_DISTRO_NAME
-        if not set --query SSH_AUTH_SOCK
-            and set --query XDG_RUNTIME_DIR
+    if test -n "$XDG_RUNTIME_DIR"
+        set --local agent_socket "$XDG_RUNTIME_DIR/ssh-agent.socket"
 
-            set --local bitwarden_ssh_agent_socket "$XDG_RUNTIME_DIR/bitwarden-ssh-agent.sock"
+        # if not test -S "$agent_socket"
+        #     and set --query WSL_DISTRO_NAME
+        #     set agent_socket "$XDG_RUNTIME_DIR/bitwarden-ssh-agent.sock"
+        # end
 
-            if test -S "$bitwarden_ssh_agent_socket"
-                set --global --export SSH_AUTH_SOCK "$bitwarden_ssh_agent_socket"
-            end
+        if test -S "$agent_socket"
+            set --global --export SSH_AUTH_SOCK "$agent_socket"
         end
-    else
-        set --global --export SSH_AUTH_SOCK "$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
     end
 else
     mise activate fish --shims | source

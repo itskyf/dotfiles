@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+readonly program_name="${0##*/}"
+
+show_help() {
+	cat << EOF
+Usage: ${program_name} [--help]
+
+Copy UTF-8 text from standard input to the system clipboard.
+
+Supported platforms:
+  WSL      Windows PowerShell 5.1 (powershell.exe)
+  Wayland  wl-copy
+  macOS    pbcopy
+
+Examples:
+  ${program_name} < file.txt
+  cat file.txt | ${program_name}
+  printf '%s' 'Hello' | ${program_name}
+EOF
+}
+
+case "$#" in
+0)
+	;;
+1)
+	case "$1" in
+	--help)
+		show_help
+		exit 0
+		;;
+	*)
+		printf 'Error: unsupported argument: %s\n' "$1" >&2
+		printf 'Run "%s --help" for usage.\n' "${program_name}" >&2
+		exit 2
+		;;
+	esac
+	;;
+*)
+	printf 'Error: too many arguments.\n' >&2
+	printf 'Run "%s --help" for usage.\n' "${program_name}" >&2
+	exit 2
+	;;
+esac
+
+if [[ "$(uname -s)" == Darwin ]]; then
+	clipboard_command="pbcopy"
+elif [[ -n "${WSL_DISTRO_NAME:-}" || "$(uname -r)" == *icrosoft* ]]; then
+	clipboard_command="powershell.exe"
+elif [[ -n "${WAYLAND_DISPLAY:-}" ]]; then
+	clipboard_command="wl-copy"
+else
+	printf 'Error: unsupported platform or display server.\n' >&2
+	exit 1
+fi
+
+if ! command -v "${clipboard_command}" > /dev/null 2>&1; then
+	printf 'Error: %s was not found in PATH.\n' "${clipboard_command}" >&2
+	exit 127
+fi
+
+case "${clipboard_command}" in
+powershell.exe)
+	powershell.exe \
+		-NoLogo \
+		-NoProfile \
+		-NonInteractive \
+		-Command \
+		'[Console]::InputEncoding = [System.Text.UTF8Encoding]::new($false); $text = [Console]::In.ReadToEnd(); Set-Clipboard -Value $text'
+	;;
+*)
+	"${clipboard_command}"
+	;;
+esac
