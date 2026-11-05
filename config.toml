@@ -1,24 +1,23 @@
 [bootstrap.packages]
-# Official Node.js 25+ Linux binaries require libatomic at runtime.
-# https://github.com/nodejs/node/blob/main/BUILDING.md#official-binary-platforms-and-toolchains
-"apt:libatomic1" = "latest"
-"dnf:libatomic" = "latest"
 "brew:bat" = "latest"
 "brew:chafa" = "latest"
 "brew:fd" = "latest"
 "brew:fish" = "latest"
 "brew:gh" = "latest"
 "brew:git-delta" = "latest"
+"brew:gitnr" = "latest"
 "brew:herdr" = "latest"
 "brew:ripgrep" = "latest"
 "brew:sk" = "latest"
 "brew:starship" = "latest"
 "brew:topgrade" = "latest"
 "brew:zoxide" = "latest"
-"brew:gitnr" = "latest"
+# Official Node.js 25+ Linux binaries require libatomic at runtime.
+# https://github.com/nodejs/node/blob/main/BUILDING.md#official-binary-platforms-and-toolchains
+"apt:libatomic1" = "latest"
+"dnf:libatomic" = "latest"
 
 [bootstrap.repos]
-"~/Projects/HCMUS/krinode" = { url = "https://github.com/itskyf/krinode.git" }
 
 [dotfile_groups.home]
 root = "home"
@@ -26,7 +25,7 @@ target = "~"
 mode = "symlink-each"
 
 [dotfile_groups.home.entries]
-"~/.apm" = { mode = "symlink" }
+"~/.config/fish" = { mode = "symlink" }
 "~/.config/nvim" = { mode = "symlink" }
 "~/.config/starship.toml" = { mode = "template" }
 
@@ -34,8 +33,8 @@ mode = "symlink-each"
 _.path = ["{{ system_brew_prefix }}/bin"]
 
 [settings]
-dotfiles.root = "~/.config/mise"
 activate_shims = false
+dotfiles.root = "~/.config/mise"
 not_found_system_fallback = false
 paranoid = true
 tool_update.global_auto = true
@@ -47,14 +46,20 @@ credential_command = "gh auth token"
 auto = true
 
 [tools]
+apm = "latest"
+bitwarden = "latest"
+fnox = { version = "latest", workflow = "release.yml" }
+"npm:@playwright/cli" = "latest"
+uv = "latest"
+#
 "aqua:neovim/neovim" = "0.12"
+biome = "latest"
 "github:docker/docker-language-server" = "latest"
 "github:EmmyLuaLs/emmylua-analyzer-rust" = { version = "latest", matching_regex = "^emmylua_ls-" }
+"github:redhat-developer/vscode-xml" = { version = "latest", rename_exe = "lemminx" }
 node = "latest"
 "npm:bash-language-server" = "latest"
 "npm:fish-lsp" = "latest"
 "npm:yaml-language-server" = "latest"
+tombi = "latest"
 tree-sitter = "latest"
-fnox = { version = "latest", workflow = "release.yml" }
-uv = "latest"
-apm = "latest"
