@@ -1,6 +1,14 @@
+-- Disable netrw to avoid conflicts with nvim-tree.
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- Editor options
 vim.opt.autocomplete = true
 vim.opt.complete:prepend("o")
 vim.opt.completeopt:append("noselect")
+
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -8,42 +16,60 @@ vim.opt.relativenumber = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 0
 
+vim.opt.termguicolors = true
+
+-- Keep parsers compatible with nvim-treesitter updates.
+vim.api.nvim_create_autocmd("PackChanged", {
+	callback = function(ev)
+		if ev.data.spec.name ~= "nvim-treesitter" then
+			return
+		end
+
+		if ev.data.kind == "install" or ev.data.kind == "update" then
+			vim.cmd.packadd(ev.data.spec.name)
+			require("nvim-treesitter").update()
+		end
+	end,
+})
+
+-- Plugins
 vim.pack.add({
 	{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/ibhagwan/fzf-lua",
-	"https://github.com/nvim-mini/mini.icons"
+	"https://github.com/nvim-mini/mini.icons",
+	"https://github.com/nvim-tree/nvim-tree.lua",
 })
 
+-- Appearance
 vim.cmd.colorscheme("catppuccin-nvim")
-
 require("mini.icons").setup()
+
+-- Fuzzy finding
 local fzf = require("fzf-lua")
 fzf.setup({
-	[1] = "skim", -- fzf-lua profile
+	[1] = "skim",
 	winopts = {
 		preview = {
-			default = "bat"
-		}
-	}
-})
-vim.keymap.set("n", "<C-p>", fzf.global, { desc = "Find files, buffers, and symbols" })
-vim.keymap.set("n", "<leader>sg", fzf.grep_cword, { desc = "Search word under cursor in project" })
-vim.keymap.set("x", "<leader>sg", fzf.grep_visual, { desc = "Search visual selection in project" })
-
--- Keep parsers compatible when nvim-treesitter updates.
-vim.api.nvim_create_autocmd("PackChanged", {
-	callback = function (ev)
-		if ev.data.spec.name == "nvim-treesitter" and ev.data.kind == "update" then
-			vim.cmd.TSUpdate()
-		end
-	end
+			default = "bat",
+		},
+	},
 })
 
--- Install parsers automatically when opening new languages.
+vim.keymap.set("n", "<C-p>", fzf.global, { desc = "Find files, buffers, symbols" })
+vim.keymap.set("n", "<leader>sf", fzf.blines, { desc = "Find lines in buffer" })
+vim.keymap.set("n", "<leader>sp", fzf.live_grep, { desc = "Search text in project" })
+vim.keymap.set("n", "<leader>sg", fzf.grep_cword, { desc = "Search word in project" })
+vim.keymap.set("x", "<leader>sg", fzf.grep_visual, { desc = "Search selection in project" })
+
+-- File tree
+require("nvim-tree").setup()
+vim.keymap.set("n", "<leader>e", vim.cmd.NvimTreeToggle, { desc = "Toggle file tree" })
+
+-- Install parsers only for opened filetypes.
 vim.api.nvim_create_autocmd("FileType", {
-	callback = function (ev)
+	callback = function(ev)
 		local lang = vim.treesitter.language.get_lang(ev.match)
 		if not lang then
 			return
@@ -59,30 +85,42 @@ vim.api.nvim_create_autocmd("FileType", {
 			return
 		end
 
-		ts.install(lang):await(function (err, ok)
-			if not err and ok and vim.api.nvim_buf_is_valid(ev.buf) and vim.bo[ev.buf].filetype == ev.match
-				and vim.treesitter.language.add(lang) then
+		ts.install(lang):await(function(err, ok)
+			if
+				not err
+				and ok
+				and vim.api.nvim_buf_is_valid(ev.buf)
+				and vim.bo[ev.buf].filetype == ev.match
+				and vim.treesitter.language.add(lang)
+			then
 				vim.treesitter.start(ev.buf)
 			end
 		end)
-	end
+	end,
 })
 
+-- LSP configuration
 vim.lsp.config("emmylua_ls", {
 	settings = {
 		emmylua = {
 			runtime = { version = "LuaJIT" },
 			diagnostics = { globals = { "vim" } },
 			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true)
-			}
-		}
-	}
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
+		},
+	},
 })
 
 vim.lsp.config("mise", {
-	init_options = { formatting = false, hover = false, completion = false }
+	init_options = {
+		formatting = false,
+		hover = false,
+		completion = false,
+	},
 })
+
+-- LSP servers
 vim.lsp.enable({
 	"bashls",
 	"biome",
@@ -94,5 +132,5 @@ vim.lsp.enable({
 	"ruff",
 	"tombi",
 	"ty",
-	"yamlls"
+	"yamlls",
 })
