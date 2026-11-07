@@ -1,0 +1,1 @@
+talosctl completion fish | source

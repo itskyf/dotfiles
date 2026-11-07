@@ -8,7 +8,13 @@ steps {
     depends = "tombi"
   }
   // JavaScript/TypeScript
-  ["biome"] = Builtins.biome
+  ["biome"] = (Builtins.biome) {
+    glob = super.glob + List(
+      "**/*.md",
+      "**/*.yaml",
+      "**/*.yml",
+    )
+  }
   // Lua
   ["selene"] = Builtins.selene
   ["stylua"] = (Builtins.stylua) {

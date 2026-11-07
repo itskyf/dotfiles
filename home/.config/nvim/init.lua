@@ -20,7 +20,7 @@ vim.opt.termguicolors = true
 
 -- Keep parsers compatible with nvim-treesitter updates.
 vim.api.nvim_create_autocmd("PackChanged", {
-	callback = function(ev)
+	callback = function (ev)
 		if ev.data.spec.name ~= "nvim-treesitter" then
 			return
 		end
@@ -29,7 +29,7 @@ vim.api.nvim_create_autocmd("PackChanged", {
 			vim.cmd.packadd(ev.data.spec.name)
 			require("nvim-treesitter").update()
 		end
-	end,
+	end
 })
 
 -- Plugins
@@ -39,7 +39,7 @@ vim.pack.add({
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/ibhagwan/fzf-lua",
 	"https://github.com/nvim-mini/mini.icons",
-	"https://github.com/nvim-tree/nvim-tree.lua",
+	"https://github.com/nvim-tree/nvim-tree.lua"
 })
 
 -- Appearance
@@ -52,16 +52,17 @@ fzf.setup({
 	[1] = "skim",
 	winopts = {
 		preview = {
-			default = "bat",
-		},
-	},
+			default = "bat"
+		}
+	}
 })
 
+-- Ctrl-P follows the common Quick Open convention used by many editors.
 vim.keymap.set("n", "<C-p>", fzf.global, { desc = "Find files, buffers, symbols" })
 vim.keymap.set("n", "<leader>sf", fzf.blines, { desc = "Find lines in buffer" })
 vim.keymap.set("n", "<leader>sp", fzf.live_grep, { desc = "Search text in project" })
-vim.keymap.set("n", "<leader>sg", fzf.grep_cword, { desc = "Search word in project" })
-vim.keymap.set("x", "<leader>sg", fzf.grep_visual, { desc = "Search selection in project" })
+vim.keymap.set("n", "<leader>sg", fzf.grep_cword, { desc = "Grep word under cursor in project" })
+vim.keymap.set("x", "<leader>sg", fzf.grep_visual, { desc = "Grep selection in project" })
 
 -- File tree
 require("nvim-tree").setup()
@@ -69,7 +70,7 @@ vim.keymap.set("n", "<leader>e", vim.cmd.NvimTreeToggle, { desc = "Toggle file t
 
 -- Install parsers only for opened filetypes.
 vim.api.nvim_create_autocmd("FileType", {
-	callback = function(ev)
+	callback = function (ev)
 		local lang = vim.treesitter.language.get_lang(ev.match)
 		if not lang then
 			return
@@ -85,18 +86,13 @@ vim.api.nvim_create_autocmd("FileType", {
 			return
 		end
 
-		ts.install(lang):await(function(err, ok)
-			if
-				not err
-				and ok
-				and vim.api.nvim_buf_is_valid(ev.buf)
-				and vim.bo[ev.buf].filetype == ev.match
-				and vim.treesitter.language.add(lang)
-			then
+		ts.install(lang):await(function (err, ok)
+			if not err and ok and vim.api.nvim_buf_is_valid(ev.buf) and vim.bo[ev.buf].filetype == ev.match
+				and vim.treesitter.language.add(lang) then
 				vim.treesitter.start(ev.buf)
 			end
 		end)
-	end,
+	end
 })
 
 -- LSP configuration
@@ -106,18 +102,18 @@ vim.lsp.config("emmylua_ls", {
 			runtime = { version = "LuaJIT" },
 			diagnostics = { globals = { "vim" } },
 			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
-			},
-		},
-	},
+				library = vim.api.nvim_get_runtime_file("", true)
+			}
+		}
+	}
 })
 
 vim.lsp.config("mise", {
 	init_options = {
 		formatting = false,
 		hover = false,
-		completion = false,
-	},
+		completion = false
+	}
 })
 
 -- LSP servers
@@ -132,5 +128,5 @@ vim.lsp.enable({
 	"ruff",
 	"tombi",
 	"ty",
-	"yamlls",
+	"yamlls"
 })
